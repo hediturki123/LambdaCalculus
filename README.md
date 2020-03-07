@@ -1,1 +1,1 @@
-# --calcul-projet
+# lambda-calcul-projet
