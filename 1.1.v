@@ -105,6 +105,7 @@ Definition Y := \f·(delta f) (delta f).
 Definition cfonc := \r·\n·cif (ceq0 n) c1 (cmult n (r (cpred n))).
 Definition cfact := Y cfonc.
 Compute(red_cbn(cfact c3)).
+Compute(red_cbn(cfact (csucc c3))).
 
 
 
