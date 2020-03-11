@@ -1,0 +1,24 @@
+(*lambda calcul simplement typé*)
+(*1.2.1 booléens*)
+Section type_boolean.
+Variable T : Set.
+Definition cbool := T->T->T.
+Definition ctr : cbool := fun x y => x.
+Definition cfa : cbool := fun x y => y.
+(*Definition cif : cbool :=*)
+(*operations sur les booleens*)
+(*Definition cnot : cbool := 
+
+
+End type_boolean.
+*)
+
+(*1.2.2 entiers naturels*)
+
+Definition add := fun x y => x+y. 
+Definition mult := fun x y => x*y.
+
+Compute(add 1 2).
+Compute(mult 2 3).
+
+
