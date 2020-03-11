@@ -102,9 +102,9 @@ Definition Y := \f·(delta f) (delta f).
 
 
 (*1.1.6 Factorielle*)
-Definition A := \g·(\x·g (x x)) (\x·g (x x)).
-Definition G := \r·\n·(cif (ceq0 n cmult(n (r r (cpred n))) c1)).
-Compute(red_cbn((A G) c0)).
+Definition cfonc := \r·\n·cif (ceq0 n) c1 (cmult n (r (cpred n))).
+Definition cfact := Y cfonc.
+Compute(red_cbn(cfact c3)).
 
 
 
