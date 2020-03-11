@@ -104,6 +104,9 @@ Definition Y := \f·(delta f) (delta f).
 (*1.1.6 Factorielle*)
 Definition cfonc := \r·\n·cif (ceq0 n) c1 (cmult n (r (cpred n))).
 Definition cfact := Y cfonc.
+Compute(red_cbn(cfact c0)).
+Compute(red_cbn(cfact c1)).
+Compute(red_cbn(cfact c2)).
 Compute(red_cbn(cfact c3)).
 Compute(red_cbn(cfact (csucc c3))).
 
