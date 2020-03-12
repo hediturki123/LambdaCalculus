@@ -1,29 +1,42 @@
+(*
+Noel-Lardin Thomas
+Turki Sanekli Hedi
+*)
+
 Require Import untypedLC.
-(*1.1.1*)
-Definition ctr := \x y · x.
-Definition cfa := \x y · y.
-Definition cif := \b m n · b m n.
+(**********************************************************
+*                         Partie 1                        *
+***********************************************************)
 
+(* -------------- Lambda calcul non typé ----------------*)
+(* # 1 #*)
 
+(* Définition des Booléens *)
+Definition ctr := \x y · x.       (* TRUE *)
+Definition cfa := \x y · y.       (* FALSE *)
 Compute show_cbn ctr.
 Compute show_cbn cfa.
+
+(* Définition des opération de base *)
+
+Definition cif := \b m n · b m n. (* Condition if *)
 Compute (show_cbn (cif ctr t f)).
 Compute (show_cbn (cif cfa t f)).
 
 
-Definition cand := \a b · \x y · a (b x y) y.
+Definition cand := \a b · \x y · a (b x y) y. (* Condition and *)
 Compute (show_cbn (cand ctr ctr)).
 Compute (show_cbn (cand ctr cfa)).
 Compute (show_cbn (cand cfa cfa)).
 Compute (show_cbn (cand cfa ctr)).
 
-Definition cor := \a b · \x y · a x (b x y).
+Definition cor := \a b · \x y · a x (b x y). (* Condition or *)
 Compute (show_cbn (cor cfa cfa)).
 Compute (show_cbn (cor ctr cfa)).
 Compute (show_cbn (cor cfa ctr)).
 Compute (show_cbn (cor ctr ctr)).
 
-Definition cor' := \a · a a.
+Definition cor' := \a · a a.      (* Condition or (deuxième version) *)
 Compute (show_cbn (cor' cfa cfa)).
 Compute (show_cbn (cor' ctr cfa)).
 Compute (show_cbn (cor' cfa ctr)).
@@ -35,73 +48,92 @@ Compute (show_cbn (cor_cif ctr cfa)).
 Compute (show_cbn (cor_cif ctr ctr)).
 Compute (show_cbn (cor_cif cfa ctr)).
 
-Definition cnot := \b · cif b cfa ctr.
+Definition cnot := \b · cif b cfa ctr.  (* Négation *)
 Compute (show_cbn (cnot cfa)).
 Compute (show_cbn (cnot ctr)).
+Compute (red_cbn (cnot (cand ctr cfa))).
 
-(*1.1.2*)
-Definition c0 := \f x·x.
-Definition c1 := \f x·f x.
-Definition c2 := \f x·f( f x ).
-Definition c3 := \f x·f(f(f x)).
+(* # 2 #*)
+(* Définition des constantes en entier de Church *)
+Definition c0 := \f x·x.          (* 0 *)
+Definition c1 := \f x·f x.        (* 1 *)
+Definition c2 := \f x·f( f x ).   (* 2 *)
+Definition c3 := \f x·f(f(f x)).  (* 3 *)
 
+(* Définition de l'opération: successeur *)
 Definition csucc := \n f x·f(n f x).
-
 Compute ( show_cbn (csucc c0) ).
 Compute ( show_cbn (csucc c1) ).
+Compute ( red_cbn (csucc c2)).
+Compute (red_cbn (csucc c3)).
+Compute (red_cbn (csucc ((csucc c3)))). (* successeur de 4 *)
 
+(* Définition de l'opération: addition *)
 Definition cadd := \n m f x·n f ( m f x ).
+Compute ( red_cbn (cadd c0 c1) ).
+Compute ( red_cbn (cadd c1 c2) ).
+Compute ( red_cbn (cadd c3 (csucc (csucc c3)))). (* 3+5 *)
 
-Compute ( show_cbn (cadd c0 c1) ).
-Compute ( show_cbn (cadd c1 c2) ).
-Compute ( show_cbn (cadd ctr cfa )).
-Compute ( show_cbn (cadd cfa ctr)).
-Compute ( show_cbn (cadd c2 ctr)).
-Compute ( show_cbn (cadd c2 cfa)).
 
+(* Définition de l'opération: muliplication *)
 Definition cmult := \n m f·n ( m f ).
+Compute ( red_cbn (cmult c2 c3)).
+Compute (red_cbn (cmult (csucc c3) (csucc c3))). (* 4*4 *)
+Compute (red_cbn (cmult (cadd c2 (csucc c0)) (cmult c2 c2))). (* (2+1)*2*2 *)
 
-Compute ( show_cbn (cmult c2 c3)).
-
+(* Définition du test à 0*)
 Definition ceq0 :=  \n·n (\z·cfa) ctr.
+Compute ( red_cbn (ceq0 c0)).
+Compute ( red_cbn (ceq0 c1)).
+Compute ( red_cbn (ceq0 (cmult (cadd c2 (csucc c0)) (cmult c2 c2)))).            (* (2+1)*2*2 *)
+Compute ( red_cbn (ceq0 (cmult (cmult (cadd c2 (csucc c0)) (cmult c2 c2)) c0))). (* 0*(2+1)*2*2 *)
 
-Compute ( show_cbn (ceq0 c0)).
-Compute ( show_cbn (ceq0 c1)).
+(* # 3 #*)
+(* Définition du couple *)
+Definition cpl := \x y k·k x y.     (* Creer un couple de deux entier de Church *)
+Definition fst := \p· p (\x y·x).   (* Renvoie le premier entier de Church du couple *)
+Definition snd := \p·p (\x y·y).    (* Renvoie le deuxième entier de Church du couple *)
+Compute (red_cbn (fst (cpl c1 c2))).
+Compute (red_cbn (snd (cpl c1 c2))).
+Compute (red_cbn (fst (cpl c1 (cpl c0 c2)))).
+Compute (red_cbn (snd (snd (cpl c1 (cpl c0 c2))))).
 
-Definition cpl := \x y k·k x y.
-Definition fst := \p· p (\x y·x).
-Definition snd := \p·p (\x y·y).
-
-Compute (show_cbn (fst (cpl c1 c2))).
-
+(* Définition des deux entiers de Church d'un couple *)
 Definition caddc := \c·c cadd.
+Compute (red_cbn (caddc (cpl c1 c2))).
+Compute (red_cbn (caddc (cpl c3 (cmult c3 c3)))).
 
-Compute (show_cbn (caddc (cpl c1 c2))).
-
+(* # 4 # *)
+(* Définition de structure *)
 Definition inj1 := \z y·z x.
 Definition inj2 := \z y·y x.
+Compute (red_cbn (inj1 f g) ).
+Compute (red_cbn (inj2 f g) ).
 
-Compute (show_cbn (inj1 f g) ).
-Compute (show_cbn (inj2 f g) ).
-
+(* Définition de l'itérateur *)
 Definition iter := \n g x· n g x .
-Compute (show_cbn (iter c1 csucc c0)).
-Compute (show_cbn (iter c2 csucc c0)).
-Compute (show_cbn (iter c3 csucc c0)).
+Compute (red_cbn (iter c1 csucc c0)).
+Compute (red_cbn (iter c2 csucc c0)).
+Compute (red_cbn (iter c3 csucc c0)).
 
+(* # 5 # *)
+(* Définition d'une fonction qui rend le couple (y y+1) *)
 Definition cpred1 := \c· cpl (snd c) (csucc (snd c)).
 Compute (red_cbn (cpred1 (cpl c1 c2))).
 Compute (red_cbn (cpred1 (cpl c2 c3))).
 
+(* Définition du prédécesseur *)
 Definition cpred := \n·fst(iter n cpred1 (cpl c0 c0)).
 Compute (red_cbn (cpred c2)).
 Compute (red_cbn (cpred c3)).
+Compute (red_cbn (cpred(cmult(cadd c2 c3) c2))).
 
+(* # 6 # *)
+(* Définition du Combinateur de point fixe *)
 Definition delta := \f·\x·f(x x).
 Definition Y := \f·(delta f) (delta f).
 
-
-(*1.1.6 Factorielle*)
+(* Definition de la factorielle *)
 Definition cfonc := \r·\n·cif (ceq0 n) c1 (cmult n (r (cpred n))).
 Definition cfact := Y cfonc.
 Compute(red_cbn(cfact c0)).
