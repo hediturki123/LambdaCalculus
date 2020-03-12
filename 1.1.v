@@ -108,6 +108,7 @@ Compute(red_cbn(cfact c0)).
 Compute(red_cbn(cfact c1)).
 Compute(red_cbn(cfact c2)).
 Compute(red_cbn(cfact c3)).
+Compute(red_cbn(cfact (csucc c3))).
 
 
 
