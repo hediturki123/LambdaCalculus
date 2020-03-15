@@ -105,10 +105,28 @@ Compute (red_cbn (caddc (cpl c3 (cmult c3 c3)))).
 
 (* # 4 # *)
 (* Définition de structure *)
-Definition inj1 := \z y·z x.
-Definition inj2 := \z y·y x.
-Compute (red_cbn (inj1 f g) ).
-Compute (red_cbn (inj2 f g) ).
+Definition inj1 := \x z y·z x.
+Definition inj2 := \x z y·y x.
+Compute (red_cbn (inj1 x f g) ).
+Compute (red_cbn (inj2 x f g) ).
+
+(* Définition des fonctions *)
+Definition fonc1:=\n · cmult n c2.
+Definition fonc2:=\n · cnot n.
+Compute (red_cbn (fonc1 c2)).
+Compute (red_cbn (fonc2 ctr)).
+Compute (red_cbn (inj1 c2 fonc1 fonc2)).
+Compute (red_cbn (inj2 ctr fonc1 fonc2)).
+
+(* Donnée optionnel -- BONUS -- *)
+Definition Some:= inj1.
+Definition None:= cfa. (* FAUX *)
+Definition f1:= \x ·csucc x.
+Definition f2:= c0.
+Definition osucc:= \n · Some(n f1 f2).
+Compute (red_cbn(osucc(Some(c2)))).
+Compute (red_cbn(osucc(None))).
+Compute (red_cbn(osucc(Some(cadd(cmult c2 c2) (csucc c1))))). (* (2*2)+2 *)
 
 (* Définition de l'itérateur *)
 Definition iter := \n g x· n g x .
@@ -128,7 +146,13 @@ Compute (red_cbn (cpred c2)).
 Compute (red_cbn (cpred c3)).
 Compute (red_cbn (cpred(cmult(cadd c2 c3) c2))).
 
-(* # 6 # *)
+(* Definition de cpredo -- BONUS -- *)
+Definition cpredo:=\n · n osucc None (\x ·x) c0.
+Compute(red_cbn(cpredo c2)).
+Compute(red_cbn(cpredo c3)).
+Compute(red_cbn(cpredo (cmult c2 c3))).
+
+(* # 6 # -- BONUS -- *)
 (* Définition du Combinateur de point fixe *)
 Definition delta := \f·\x·f(x x).
 Definition Y := \f·(delta f) (delta f).
