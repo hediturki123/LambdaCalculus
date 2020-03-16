@@ -18,3 +18,4 @@ Compute id_bool true.
 Compute id_bool false.
 
 (*3*)
+Compute id tid id.
