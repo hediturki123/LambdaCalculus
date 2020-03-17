@@ -48,8 +48,7 @@ Compute cond (disj pfa (neg_bool_1 ptr)).
 
 (* 5 -- BONUS -- *)
 (* Définition de la fonction qui rend un booléen appliqué à lui même *)
-Definition id_bool: pbool->pbool->pbool := fun b => b (pbool) b.
+Definition id_bool: pbool->pbool := fun b => b pbool b b.
 Compute id_bool ptr.
 Compute id_bool pfa.
-
 
