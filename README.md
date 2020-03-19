@@ -22,8 +22,8 @@ $ coqide -impredicative-set
 
 ### 2.2.2  Booléens avec typage polymorphe 
 * Booléens : pbool def= ∀T. T→T→T
-** Vrai : ptr def= ΛT.λx^T y^T.x
-** Faux : pfa def= ΛT.λx^T y^T.y
+* Vrai : ptr def= ΛT.λx^T y^T.x
+* Faux : pfa def= ΛT.λx^T y^T.y
 
 ### 2.2.3  Structures de données : couples et choix
 * Couples : A×B def= ∀T, (A→B→T)→T.
