@@ -158,7 +158,7 @@ Definition delta := \f·\x·f(x x).
 Definition Y := \f·(delta f) (delta f).
 
 (* Definition de la factorielle *)
-Definition cfonc := \r·\n·cif (ceq0 n) c1 (cmult n (r (cpred n))).
+Definition cfonc := \r·\n·cif (ceq0 n) c1 (cmult n (r (cpred n))). (* if(n==0)then c1 else cmult(n*cfonc (n-1)) *)
 Definition cfact := Y cfonc.
 Compute(red_cbn(cfact c0)).
 Compute(red_cbn(cfact c1)).
