@@ -86,7 +86,7 @@ Compute scnd pnat pbool (pcpl pnat pbool p3 pfa). (* (3,false) *)
 (* Définition de la fonction qui prend le couple (A,B) et renvoie le couple (B,B+1) *)
 (* Lorsqu'elle reçoit un couple, elle va prendre le deuxième élément du couple et le met dans le premier élément du couple
 en construction. Ensuite, elle prend le deuxième élément du couple lui ajoute 1 puis le place dans le deuxième élément
-du couple en construction et elle renvoie se couple *)
+du couple en construction et elle renvoie ce couple *)
 Definition pred1: (pprod pnat pnat)->(pprod pnat pnat):= fun c => pcpl pnat pnat (scnd pnat pnat c)(pS(scnd pnat pnat c)).
 Compute pred1 (pcpl pnat pnat p3 p4).
 Compute pred1 (pcpl pnat pnat p1 p2).
