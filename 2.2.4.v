@@ -84,11 +84,18 @@ Compute scnd pnat pbool (pcpl pnat pbool p3 pfa). (* (3,false) *)
 
 (* Définition de fonction pour calculer le prédécésseur*)
 (* Définition de la fonction qui prend le couple (A,B) et renvoie le couple (B,B+1) *)
+(* Lorsqu'elle reçoit un couple, elle va prendre le deuxième élément du couple et le met dans le premier élément du couple
+en construction. Ensuite, elle prend le deuxième élément du couple lui ajoute 1 puis le place dans le deuxième élément
+du couple en construction et elle renvoie se couple *)
 Definition pred1: (pprod pnat pnat)->(pprod pnat pnat):= fun c => pcpl pnat pnat (scnd pnat pnat c)(pS(scnd pnat pnat c)).
 Compute pred1 (pcpl pnat pnat p3 p4).
 Compute pred1 (pcpl pnat pnat p1 p2).
 
 (* Définition de la fonction qui itère n fois la fonction pred1 est renvoie le prédécesseur de n *)
+(* Pour cette fonction, on va faire n fois la fonction précédente.Cela va permettre de créer le couple (n-1,n).
+Par exemple, si on veux le prédécesseur de 3, la fonction vas exécuter comme celà:
+(0,0)-> 1ère itération (0,1)-> 2ème itération (1,2)-> 3ème itération (2,3)-> sélection du premier élément 2
+-> renvoi de cet élément. *)
 Definition pred: pnat->pnat := fun n => frst pnat pnat (n(pprod pnat pnat) pred1 (pcpl pnat pnat p0 p0)).
 Compute pred p1.
 Compute pred p2.
