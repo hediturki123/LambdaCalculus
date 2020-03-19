@@ -1,3 +1,7 @@
+(*
+Noel-Lardin Thomas
+Turki Sanekli Hedi
+*)
 (* 2.2.4 Entiers de Church avec typage polymorphe *)
 
 Definition pnat : Set := forall T : Set, (T->T)->(T->T).
