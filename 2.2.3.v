@@ -1,5 +1,8 @@
+(*
+Noel-Lardin Thomas
+Turki Sanekli Hedi
+*)
 (*2.2.3 Structures de données : couples et choix *)
-
 (*1*)
 (* Définition de la construction d'un couple d'un entier et d'un booléen *)
 Definition pprod_nb : Set := forall T : Set, (nat->bool->T) -> T.
