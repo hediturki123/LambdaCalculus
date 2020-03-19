@@ -1,5 +1,11 @@
 # lambda-calcul-projet
 ## 1.1 λ-calcul non typé
+Pour cette partie, il faut ajouter la requête suivante au début de votre fichier :
+```
+Require Import untypedLC.
+```
+Elle permet d'importer les définitions des expressions lexp.
+
 1.  Booléens (codage des constantes et des opérations de base)
 2.  Entiers naturels (codage de quelques constantes, des opérations successeur, addition et multiplica-tion, et du test à 0)
 3.  Couples
@@ -30,6 +36,6 @@ $ coqide -impredicative-set
 * Choix : A+B def = ∀T, (A→T)→(B→T)→T.
 
 ### 2.2.4  Entiers de Church avec typage polymorphe 
-* pnat def= ∀T, (T→T)→(T→T)
+* Entiers : pnat def= ∀T, (T→T)→(T→T)
 1.  Opérations d’addition, de multiplication et de test à 0.
 2.  Calcul du prédécesseur d’un entier n.
