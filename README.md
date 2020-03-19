@@ -19,7 +19,6 @@ Pour utliser le typage polymorphe, il faut lancer Coq avec la commande suivante 
 $ coqide -impredicative-set
 ```
 ### 2.2.2  Booléens avec typage polymorphe 
-pbool def = ∀T. T→T→T
 
 ### 2.2.3  Structures de données : couples et choix
 
