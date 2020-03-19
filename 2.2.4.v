@@ -47,15 +47,19 @@ Compute pplus p4 p1.
 
 (*3*) 
 
-Definition frst := fun p => p (fun x y => x).
+Definition pprod (A B: Set) : Set := forall T:Set,(A->B->T)->T.
+Definition pcpl (A B :Set): A->B->(pprod A B) := fun (a : A) (b : B) => fun T => fun k :(A->B->T) => k a b.
+Definition frst (A B :Set) : (pprod A B) -> A:= fun p => p A (fun (x : A) (y : B) => x).
+Compute frst pnat pnat (pcpl pnat pnat p3 p4).
+Compute frst pbool pnat (pcpl pbool pnat ptr p4).
+Compute frst pnat pbool (pcpl pnat pbool p3 pfa).
 
-
-
-
-
-
-
-
+Definition scnd (A B :Set) : (pprod A B) -> B:= fun p => p B (fun (x : A) (y : B) => y).
+Compute scnd pnat pnat (pcpl pnat pnat p3 p4).
+Compute scnd pbool pnat (pcpl pbool pnat ptr p4).
+Compute scnd pnat pbool (pcpl pnat pbool p3 pfa).
+(*Definition cpred1 := \c· cpl (snd c) (csucc (snd c)).*)
+(*Definition ppred1*)
 
 
 
