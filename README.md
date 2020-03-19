@@ -1,5 +1,11 @@
 # lambda-calcul-projet
 ## 1.1 λ-calcul non typé
+1.  Booléens (codage des constantes et des opérations de base)
+2.  Entiers naturels (codage de quelques constantes, des opérations successeur, addition et multiplica-tion, et du test à 0)
+3.  Couples
+4.Structure de choix (inj1, inj2) 
+5.  Prédécesseur
+6.Factorielle
 
 ## 1.2 λ-calcul simplement typé 
 
