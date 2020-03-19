@@ -19,9 +19,15 @@ Compute echange (pcpl_nb 3 true).
 Compute echange (pcpl_nb 6 false).
 
 (*4*)
-Definition pprod : Set -> Set -> Set := fun A B => forall T:Set, (A->B->T)->T.
-Definition pprod' (A B: Set) : Set := forall T:Set,(A->B->T)->T.
-(*Definition pcpl?????*)
+Variable A B :Set. (* je ne sais pas comment enlever ce warning *)
+Definition pprod_1 : Set -> Set -> Set := fun A B => forall T:Set, (A->B->T)->T.
+Definition pprod_2 (A B: Set) : Set := forall T:Set,(A->B->T)->T.
+Definition pcpl : A->B->(pprod_2 A B) := fun (a : A) (b : B) => fun T => fun k :(A->B->T) => k a b.
+
+Compute pcpl nat nat 1 2.
+Compute pcpl bool nat true 1.
+Compute pcpl nat bool 1 false.
+Compute pcpl bool bool true false.
 
 Definition psom (A B: Set) : Set := forall T:Set,(A->T)->(B->T)->T.
 Definition inj1 (A B: Set) : A -> psom A B := fun u => fun T:Set => fun k => fun k'=>k u.
