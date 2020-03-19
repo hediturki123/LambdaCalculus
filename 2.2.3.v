@@ -53,7 +53,7 @@ Variable bool_vers_bool : bool->bool.
 
 (* Définition des fonctions inj1 *)
 (* Cette fonction va prendre un nat N et l'injecter dans la première fonction qui lui est donnée.
-La fonction va être appliqué à N et inj1 va rendre le résultat de cette fonction. *)
+La fonction va être appliquée à N et inj1 va rendre le résultat de cette fonction. *)
 
 Definition psom (A B: Set) : Set := forall T:Set,(A->T)->(B->T)->T.
 Definition inj1 (A B: Set) : A -> psom A B := fun u => fun T:Set => fun k => fun k'=>k u.
