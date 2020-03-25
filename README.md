@@ -1,4 +1,4 @@
-# lambda-calcul-projet
+# Lambda-Calcul-coq 
 ## 1.1 λ-calcul non typé
 Pour cette partie, il faut ajouter la requête suivante au début de votre fichier :
 ```
