@@ -4,9 +4,9 @@
 
 ## 1.1 Untyped λ-calculus
 For this part, add the following query to the beginning of your file:
-`` ''
+```
 Require Import untypedLC.
-`` ''
+```
 It allows to import the definitions of lexp expressions.
 
 1. Booleans (coding of constants and basic operations)
@@ -24,9 +24,9 @@ It allows to import the definitions of lexp expressions.
 
 ### 2.2.1 The polymorphic identity
 To use polymorphic typing, you have to launch Coq with the following command:
-`` ''
+```
 $ coqide -impredicative-set
-`` ''
+```
 * Identity: id def = ΛT.λx ^ T.x
 
 ### 2.2.2 Booleans with polymorphic typing
